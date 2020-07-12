@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load tz %}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Django Forms</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+    <table>
+        {{ form }}
+    </table>
+    <p>{% now "N j, Y, P" %}</p>
+    {% get_current_timezone as TIME_ZONE %}
+    <input type="submit" value="Send" >
+</form>
+</body>
+</html>
