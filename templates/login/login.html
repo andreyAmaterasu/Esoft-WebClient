@@ -1,19 +1,75 @@
 <!DOCTYPE html>
-{% load tz %}
+{% load static %}
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Django Forms</title>
+    <title>Esoft</title>
+    <link rel="stylesheet" type="text/css" href="{% static "login/css/style.css" %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 </head>
 <body>
-    <form method="POST">
+    <img class="Logo" src="{% static "login/images/logo.png" %}">
+    <form class="Form" method="POST" id="authForm"> 
+        <p class="Enter"> Вход </p>
         {% csrf_token %}
-    <table>
-        {{ form }}
-    </table>
-    <p>{% now "N j, Y, P" %}</p>
-    {% get_current_timezone as TIME_ZONE %}
-    <input type="submit" value="Send" >
-</form>
+        {% for field in form %}
+        <div class="FormGroup">
+            {{field.label_tag}}
+            <br>
+            {{field}}
+        </div>
+        {% endfor %}
+        <br>
+    <input type="submit" value="Войти">
+
+    
+    
+    </form>
+    {% if error %}
+    <div class="ErrorBlock"></div>
+    {% endif %}
+    
+    <!-- <script type="text/javascript">
+        var frm = $('#authForm');
+        frm.submit(function () {
+            $.ajax({
+                type: frm.attr('method'),
+                url: frm.attr('action'),
+                data: frm.serialize(),
+                success: function (data) {
+                    $('body').append('<div class="ErrorBlock"></div>');
+                },
+                error: function(data) {
+                    $('body').append('<div class="ErrorBlock"></div>');
+                }
+            });
+            return false;
+        });
+    </script> -->
+    
+   
+
+    <!-- <script>
+
+
+$(function() {
+       $("#authForm").submit(function(event) {
+           // Stop form from submitting normally
+           event.preventDefault();
+           var authForm = $(this);
+           // Send the data using post
+           var posting = $.post( authForm.attr('action'), authForm.serialize() );
+           // if success:
+           posting.done(function(data) {
+            $('body').append('<div class="ErrorBlock"></div>');
+           });
+           // if failure:
+           posting.fail(function(data) {
+            $('body').append('<div class="ErrorBlock"></div>');
+           });
+       });
+});
+
+    </script> -->
 </body>
 </html>

@@ -10,14 +10,15 @@ def login(request):
     if request.method == "POST":
         entered_login = request.POST.get("login")
         entered_password = request.POST.get("password")
-
         useraccounts = services.getUseraccounts()
+
         for useraccount in useraccounts:
             if useraccount.login == entered_login:
                 useraccount.datetimeauthorized = datetime.now()
                 useraccount.save()
-                return HttpResponse("Вход выполнен")
-        return HttpResponse("ERROR!!")
+                return HttpResponse("")
+        userform = UserForm()
+        return render(request, "login/login.html", {"form": userform, "error": True})
     else:
         userform = UserForm()
         return render(request, "login/login.html", {"form": userform})
