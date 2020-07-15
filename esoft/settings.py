@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['10.0.0.3']
 
+AUTH_USER_MODEL = 'login.Useraccount'
 
 # Application definition
 
