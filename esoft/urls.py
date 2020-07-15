@@ -18,5 +18,4 @@ from django.urls import path, include
 urlpatterns = [
     path('personalarea/', include('personalarea.urls')),
     path('', include('login.urls')),
-    
 ]
