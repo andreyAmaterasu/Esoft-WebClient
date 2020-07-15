@@ -10,13 +10,13 @@ def login(request):
     if request.method == "POST":
         entered_login = request.POST.get("login")
         entered_password = request.POST.get("password")
-        useraccounts = services.getUseraccounts()
 
-        for useraccount in useraccounts:
-            if useraccount.login == entered_login:
-                useraccount.datetimeauthorized = datetime.now()
-                useraccount.save()
-                return HttpResponse("")
+        useraccount = services.getUseraccountWhithLogin("Useraccount", entered_login)
+        if useraccount:
+            if useraccount[0].login == entered_login and useraccount[0].password == entered_password:
+                useraccount[0].datetimeauthorized = datetime.now()
+                useraccount[0].save()
+                return render(request, "personalarea/index.html")
         userform = UserForm()
         return render(request, "login/login.html", {"form": userform, "error": True})
     else:
