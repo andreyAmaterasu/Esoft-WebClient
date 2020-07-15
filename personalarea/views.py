@@ -1,5 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from . import services
 
 def index(request):
-    return render(request, "personalarea/index.html")
+    login = request.GET.get("login")
+
+    user = services.getUserWithLogin("Manager", login)
+
+    datacontext = {"firstname": user.firstname, "lastname": user.lastname}
+    return render(request, "personalarea/base.html", context=datacontext)

@@ -4,10 +4,45 @@ body {
     margin: 0;
 }
 
+header {
+    background-color: white;
+    height: 130px;
+}
+
 .Logo {
     height: 80px;
     display: block;
+}
+
+.LoginLogo {
     margin: 5% auto 5% auto;
+}
+
+.PersonalAreaLogo {
+    margin: 25px 0 0 5%;
+    float: left;
+}
+
+.Profile {
+    float: right;
+    margin: 40px 5% 0 0;
+}
+
+.ProfileImg {
+    height: 50px;
+    float: left;
+    margin-right: 10px;
+}
+
+.NameOfUser {
+    float: left;
+    color: #37474f;
+    font-family: Helvetica;
+    font-size: 11pt;
+}
+
+.NumeOfUser {
+    display: inline-block;
 }
 
 .Form {
@@ -46,7 +81,7 @@ label {
     margin: 15px 5px 10px 5px;
 }
 
-input[type=submit] {
+.Button {
     background-color: #04a0ff;
     font-family: Helvetica;
     font-weight: normal;
@@ -54,11 +89,26 @@ input[type=submit] {
     font-size: 11pt;
     border: none;
     color: white;
+    text-decoration: none;  
+    cursor: pointer;
+}
+
+.Buttons {
+    position: absolute;
+    left: 0; 
+    right: 0; 
+}
+
+.SubmitButton {
     width: 307px;
     height: 45px;
-    text-decoration: none;
     margin: 4px 2px;
-    cursor: pointer;
+}
+
+.ChangeButton {
+    width: 237px;
+    height: 45px;
+    margin: 40px 15px 40px 15px;
 }
 
 .ErrorBlock {

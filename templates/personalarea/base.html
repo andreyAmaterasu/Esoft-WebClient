@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Esoft - Личный кабинет</title>
+    <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+</head>
+<body>
+    <header>
+        <img class="Logo PersonalAreaLogo" src="{% static "images/logo.png" %}">
+        
+        <div class="Buttons">
+            <button class="Button ChangeButton">Задачи</button>
+        <button class="Button ChangeButton">Исполнители</button>
+        <button class="Button ChangeButton">Менеджеры</button>
+        </div>
+        
+        <div class="Profile">
+            <img class="ProfileImg" src="{% static "images/profile.png" %}">
+            <p class="NameOfUser">{{firstname}} {{lastname}}</p>
+        </div>
+    </header>
+</body>
+</html>
