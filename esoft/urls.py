@@ -17,6 +17,6 @@ from django.urls import path, include
 from django.contrib.auth import views
 
 urlpatterns = [
-    path('personalarea/tasks/', include('personalarea.urls')),
+    path('personalarea/', include('personalarea.urls')),
     path('', include('login.urls')),
 ]
