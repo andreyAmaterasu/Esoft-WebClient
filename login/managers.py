@@ -1,10 +1,7 @@
-from django.contrib.auth.base_user import BaseUserManager
-from django.utils.translation import ugettext_lazy as _
-class CustomUserManager(BaseUserManager):
-    """
-    Custom user model manager where email is the unique identifiers
-    for authentication instead of usernames.
-    """
+from django.db import models
+from django.contrib.auth.models import BaseUserManager, PermissionsMixin
 
-    def get_by_natural_key(self, login):
-        return self.get(login=login)
+class UserManager(BaseUserManager):
+
+    def get_by_natural_key(self, login_):
+       return self.get(login=login_)
