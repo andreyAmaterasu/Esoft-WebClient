@@ -28,16 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['10.0.0.3']
 
-AUTH_USER_MODEL = 'login.Useraccount'
-
-AUTHENTICATION_BACKENDS = 'login.MyBackend'
-
-REST_FRAMEWORK = {
-  'DEFAULT_AUTHENTICATION_CLASSES': (
-    'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-  ),
-}
-
 
 JWT_AUTH = {
     'JWT_VERIFY': True,
@@ -50,11 +40,8 @@ JWT_AUTH = {
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
     'login',
     'personalarea',
@@ -69,6 +56,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
+SESSION_COOKIE_HTTPONLY = True
 
 ROOT_URLCONF = 'esoft.urls'
 

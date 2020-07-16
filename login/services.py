@@ -1,11 +1,13 @@
-# from .models import Useraccount
+""" Business logic is here """
 from datetime import datetime
+from .models import Useraccount
 
-def loginUser(login, password):
-    useraccount = Useraccount.objects.filter(login = login, password = password)
-    if useraccount:
-        useraccount[0].datetimeauthorized = datetime.now()
-        useraccount[0].save()
-        return True
-    else:
-        return False
+def login_user(login, password):
+    """ User authentication using login and password """
+    try:
+        user = Useraccount.objects.get(login=login, password=password)
+        user.datetimeauthorized = datetime.now()
+        user.save()
+        return user
+    except Useraccount.DoesNotExist:
+        return None
