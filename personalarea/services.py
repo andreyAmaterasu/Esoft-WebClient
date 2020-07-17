@@ -1,6 +1,8 @@
 """Services for PersonArea"""
-from .models import Manager
+from .models import Manager, Performer
 
-def getUserWithLogin(typeOfUser, login):
-    if typeOfUser == "Manager":
-        return Manager.objects.get(login = login)
+def getUserWithLogin(login):
+    try:
+        return Performer.objects.get(login=login)
+    except Performer.DoesNotExist:
+        return Manager.objects.get(login=login)

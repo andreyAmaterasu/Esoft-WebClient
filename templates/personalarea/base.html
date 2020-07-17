@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>Esoft - Личный кабинет</title>
     <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <header>
@@ -26,5 +28,38 @@
         {% block content %}
         {% endblock %}
     </main>
+    <div id="app">
+    
+    <div class="columns medium-4" v-for="(result, index) in results">
+        <div class="card">
+          <div class="card-section">
+            <p> [[ index ]] </p>
+          </div>
+          <div class="card-divider">
+            <p>$ [[ result.USD ]]</p>
+          </div>
+          <div class="card-section">
+            <p> &#8364 [[ result.EUR ]]</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <script>
+        const url = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR";
+        const vm = new Vue({
+            delimiters: ["[[", "]]"],
+        el: '#app',
+        data: {
+          results: []
+        },
+        mounted() {
+          axios.get(url).then(response => {
+            this.results = response.data
+          })
+        }
+      });
+    </script>
 </body>
 </html>

@@ -7,7 +7,7 @@ def tasks(request):
         return HttpResponse("Ok")
     else:
         login = request.session.get('login')
-        user = services.getUserWithLogin("Manager", login)
+        user = services.getUserWithLogin(login)
 
         datacontext = {"firstname": user.firstname, "lastname": user.lastname}
         return render(request, "personalarea/tasks.html", context=datacontext)
@@ -17,7 +17,7 @@ def performers(request):
         return HttpResponse("Ok")
     else:
         login = request.session.get('login')
-        user = services.getUserWithLogin("Manager", login)
+        user = services.getUserWithLogin(login)
 
         datacontext = {"firstname": user.firstname, "lastname": user.lastname}
         return render(request, "personalarea/performers.html", context=datacontext)
@@ -27,7 +27,7 @@ def managers(request):
         return HttpResponse("Ok")
     else:
         login = request.session.get('login')
-        user = services.getUserWithLogin("Manager", login)
+        user = services.getUserWithLogin(login)
 
         datacontext = {"firstname": user.firstname, "lastname": user.lastname}
         return render(request, "personalarea/managers.html", context=datacontext)
