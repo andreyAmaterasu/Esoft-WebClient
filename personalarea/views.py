@@ -8,10 +8,6 @@ from .models import Manager
 from django.core import serializers
 from django.forms.models import model_to_dict
 
-class ManagerViewSet(ModelViewSet):
-    serializer_class = ManagerSerializer
-    queryset = Manager.objects.all()
-
 def tasks(request):
     if request.method == "POST":
         return HttpResponse("Ok")
@@ -19,8 +15,10 @@ def tasks(request):
         login = request.session.get('login')
         user = services.getUserWithLogin(login)
 
-        datacontext = {"firstname": user.firstname, "lastname": user.lastname}
-        return render(request, "personalarea/tasks.html", {"context": datacontext})
+        serialized_user = {"firstname": user.firstname, "lastname": user.lastname}
+
+        data_context = {"user_context": serialized_user}
+        return render(request, "personalarea/tasks.html", context=data_context)
 
 def performers(request):
     if request.method == "POST":
@@ -29,8 +27,10 @@ def performers(request):
         login = request.session.get('login')
         user = services.getUserWithLogin(login)
 
-        datacontext = {"firstname": user.firstname, "lastname": user.lastname}
-        return render(request, "personalarea/performers.html", {"context": datacontext})
+        serialized_user = {"firstname": user.firstname, "lastname": user.lastname}
+
+        data_context = {"user_context": serialized_user}
+        return render(request, "personalarea/performers.html", context=data_context)
 
 def managers(request):
     if request.method == "POST":
@@ -41,11 +41,9 @@ def managers(request):
 
         queryset = Manager.objects.all()
         serializer_class = ManagerSerializer(queryset, many=True)
-        serialized_data = serializer_class.data
-        
-        
+        serialized_manager = serializer_class.data
 
-        managers = serialized_data
-        user1 = {"firstname": user.firstname, "lastname": user.lastname}
-        data_context = {"managers": managers, "user": user1}
+        serialized_user = {"firstname": user.firstname, "lastname": user.lastname}
+
+        data_context = {"managers_context": serialized_manager, "user_context": serialized_user}
         return render(request, "personalarea/managers.html", context=data_context)

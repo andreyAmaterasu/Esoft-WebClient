@@ -1,7 +1,7 @@
 {% extends 'personalarea/base.html' %}
 {% block content %}
 {% load static %}
-{{ managers|json_script:"managers" }}
+{{ managers_context|json_script:"managers" }}
 
     <p style="text-align: right;">Менеджеры</p>
 
