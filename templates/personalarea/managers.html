@@ -1,4 +1,28 @@
 {% extends 'personalarea/base.html' %}
 {% block content %}
+{% load static %}
+{{ managers|json_script:"managers" }}
+
     <p style="text-align: right;">Менеджеры</p>
+
+    <div id="app2">
+        <table>
+          <thead>
+            <tr>
+              <th>Фамилия</th>
+              <th>Имя</th>
+              <th>Отчество</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="manager in managers">
+              <td>[[ manager.lastname ]]</td>
+              <td>[[ manager.firstname ]]</td>
+              <td>[[ manager.patronymic ]]</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+      <script src="{% static "js/manager.vue.js" %}"></script>
 {% endblock %}

@@ -17,6 +17,8 @@ from django.urls import path, include
 from django.contrib.auth import views
 
 urlpatterns = [
+    path('api/', include('personalarea.urls')),
     path('personalarea/', include('personalarea.urls')),
     path('', include('login.urls')),
+    
 ]

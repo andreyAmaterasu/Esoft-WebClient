@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 {% load static %}
+{{ user|json_script:"user" }}
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Esoft - Личный кабинет</title>
     <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{% static "js/vue.js" %}"></script>
+    <script src="{% static "js/axios.min.js" %}"></script>
+    <script src="{% static "js/vue-router.js" %}"></script>
 </head>
 <body>
-    <header>
+    <header id="app">
         <img class="Logo PersonalAreaLogo" src="{% static "images/logo.png" %}">
 
         <div class="Buttons">
-            <a href="{% url 'tasks' %}"><button class="Button ChangeButton">Задачи</button></a>
-            <a href="{% url 'performers' %}"><button class="Button ChangeButton">Исполнители</button></a>
-            <a href="{% url 'managers' %}"><button class="Button ChangeButton">Менеджеры</button></a>
+          <a href="{% url 'tasks' %}"><button class="Button ChangeButton">Задачи</button></a>
+          <a href="{% url 'performers' %}"><button class="Button ChangeButton">Исполнители</button></a>
+          <a href="{% url 'managers' %}"><button class="Button ChangeButton">Менеджеры</button></a>
         </div>
 
         <div class="Profile">
             <img class="ProfileImg" src="{% static "images/profile.png" %}">
-            <p class="NameOfUser">{{firstname}} {{lastname}}</p>
+            <p class="NameOfUser">[[ user.firstname ]] [[ user.lastname ]]</p>
         </div>
     </header>
 
@@ -28,38 +30,32 @@
         {% block content %}
         {% endblock %}
     </main>
-    <div id="app">
-    
-    <div class="columns medium-4" v-for="(result, index) in results">
-        <div class="card">
-          <div class="card-section">
-            <p> [[ index ]] </p>
-          </div>
-          <div class="card-divider">
-            <p>$ [[ result.USD ]]</p>
-          </div>
-          <div class="card-section">
-            <p> &#8364 [[ result.EUR ]]</p>
-          </div>
-        </div>
-      </div>
-    </div>
 
+    <script src="{% static "js/base.vue.js" %}"></script>
 
-    <script>
-        const url = "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR";
-        const vm = new Vue({
-            delimiters: ["[[", "]]"],
-        el: '#app',
-        data: {
-          results: []
-        },
-        mounted() {
-          axios.get(url).then(response => {
-            this.results = response.data
-          })
-        }
+    <!-- <script>
+      const value = JSON.parse(document.getElementById('hello-data').textContent);
+      // const vm = new Vue({
+      //     delimiters: ["[[", "]]"],
+      // el: '#app',
+      // data: {
+      //   managers: [],
+      //   value,
+      // },
+      // mounted() {
+      //   axios.get("http://10.0.0.3:8000/api/managers/").then(response => {
+      //     this.managers = response.data
+      //   })
+      // }
+      // });
+
+      const vm1 = new Vue({
+          delimiters: ["[[", "]]"],
+      el: '#app',
+      data: {
+        value,
+      },
       });
-    </script>
+  </script> -->
 </body>
 </html>
