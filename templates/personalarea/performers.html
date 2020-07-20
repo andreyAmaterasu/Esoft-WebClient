@@ -1,4 +1,27 @@
 {% extends 'personalarea/base.html' %}
 {% block content %}
+{% load static %}
+{{ managers_performers_context|json_script:"managers_persormers" }}
     <p style="text-align: center;">Исполнители</p>
+
+    <div id="app3">
+        <div v-for="performer in managers_persormers.performers">
+            <div v-for="manager in managers_persormers.managers">
+                <div v-if="performer.manager === manager.login">
+                    <td>[[ performer.login ]]</td>
+                    <td>[[ performer.lastname ]]</td>
+                    <td>[[ performer.firstname ]]</td>
+                    <td>[[ performer.patronymic ]]</td>
+                    <td>[[ performer.grade ]]</td>
+                    <td>[[ performer.manager ]]</td>
+                    <td>[[ manager.login ]]</td>
+                    <td>[[ manager.lastname ]]</td>
+                    <td>[[ manager.firstname ]]</td>
+                    <td>[[ manager.patronymic ]]</td>
+                </div>
+            </div>
+        </div>
+      </div>
+  
+      <script src="{% static "js/performer.vue.js" %}"></script>
 {% endblock %}

@@ -17,7 +17,6 @@
         <div class="Buttons">
           <a href="{% url 'tasks' %}"><button class="Button ChangeButton">Задачи</button></a>
           <a href="{% url 'performers' %}"><button class="Button ChangeButton">Исполнители</button></a>
-          <a href="{% url 'managers' %}"><button class="Button ChangeButton">Менеджеры</button></a>
         </div>
 
         <div class="Profile">
@@ -32,30 +31,5 @@
     </main>
 
     <script src="{% static "js/base.vue.js" %}"></script>
-
-    <!-- <script>
-      const value = JSON.parse(document.getElementById('hello-data').textContent);
-      // const vm = new Vue({
-      //     delimiters: ["[[", "]]"],
-      // el: '#app',
-      // data: {
-      //   managers: [],
-      //   value,
-      // },
-      // mounted() {
-      //   axios.get("http://10.0.0.3:8000/api/managers/").then(response => {
-      //     this.managers = response.data
-      //   })
-      // }
-      // });
-
-      const vm1 = new Vue({
-          delimiters: ["[[", "]]"],
-      el: '#app',
-      data: {
-        value,
-      },
-      });
-  </script> -->
 </body>
 </html>
