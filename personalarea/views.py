@@ -36,9 +36,7 @@ def performers(request):
                 managers_login.append(performer.manager.login)
 
         queryset_manager = Manager.objects.filter(login__in=managers_login)
-        
         managers_persormers["managers"] = queryset_manager
-       
         serialized_managers_performers = ManagerForPerformerSerializer(managers_persormers).data
 
         serialized_user = {"firstname": user.firstname, "lastname": user.lastname}
