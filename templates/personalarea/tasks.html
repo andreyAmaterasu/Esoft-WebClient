@@ -1,6 +1,25 @@
 {% extends 'personalarea/base.html' %}
 {% block content %}
-    <p style="text-align: left;">Задачи</p>
+{% load static %}
+{{ tasks_performer_manager_context|json_script:"tasks_performer_manager" }}
+    <div class="cont" id="app4">
+        <div v-for="task in tasks">
+            <a><button class="Button TaskButton">
+                <table>
+                    <tr>
+                        <td class="Task">[[ task.taskname ]]</td>
+                        <td class="Status">[[ task.taskstatus ]]</td>
+                    </tr>
+                    <tr>
+                        <td class="Manager">Исполнитель: [[ performer ]] </td>
+                    </tr>
+                    <tr>
+                        <td class="Manager">Менеджер: [[ manager ]] </td>
+                    </tr>
+                </table>
+            </button></a>
+        </div>
+      </div>
 
-    
+      <script src="{% static "js/task.vue.js" %}"></script>
 {% endblock %}

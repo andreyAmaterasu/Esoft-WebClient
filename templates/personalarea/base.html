@@ -7,6 +7,7 @@
     <title>Esoft - Личный кабинет</title>
     <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/performers.vue.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/task.vue.css" %}">
     <script src="{% static "js/vue.min.js" %}"></script>
     <script src="{% static "js/axios.min.js" %}"></script>
     <script src="{% static "js/vue-router.js" %}"></script>
@@ -22,7 +23,7 @@
 
         <div class="Profile">
             <img class="ProfileImg" src="{% static "images/profile.png" %}">
-            <p class="NameOfUser">[[ user.firstname ]] [[ user.lastname ]]</p>
+            <p class="NameOfUser">[[ user.lastname ]] [[ user.firstname ]]</p>
         </div>
     </header>
 
