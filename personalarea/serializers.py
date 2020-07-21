@@ -21,7 +21,13 @@ class ManagerForPerformerSerializer(serializers.Serializer):
     managers = ManagerSerializer(read_only=True, many=True)
     performers = PerformerSerializer(read_only=True, many=True)
 
-class TaskPerformerManagerSerializer(serializers.Serializer):
+class TasksPerformerManagerSerializer(serializers.Serializer):
     tasks = TaskSerializer(read_only=True, many=True)
-    performer = PerformerSerializer(read_only=True)
+    performers = PerformerSerializer(read_only=True)
     manager = ManagerSerializer(read_only=True)
+
+class TasksManagerPerformersSerializer(serializers.Serializer):
+    tasks = TaskSerializer(read_only=True, many=True)
+    manager = ManagerSerializer(read_only=True)
+    performers = PerformerSerializer(read_only=True, many=True)
+    

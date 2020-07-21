@@ -2,7 +2,7 @@ from rest_framework.viewsets import ModelViewSet
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from . import services
-from .serializers import ManagerSerializer, PerformerSerializer, TaskSerializer, ManagerForPerformerSerializer, TaskPerformerManagerSerializer
+from .serializers import ManagerForPerformerSerializer, TasksPerformerManagerSerializer, TasksManagerPerformersSerializer
 from rest_framework.renderers import JSONRenderer
 from .models import Manager, Performer, Task
 from django.core import serializers
@@ -15,28 +15,29 @@ def tasks(request):
         login = request.session.get('login')
         user = services.getUserWithLogin(login)
 
-        try:
-            # performer = Performer.objects.get(login=login)
-            # tasks = Task.objects.filter(taskperformer=login)
-            # manager = performer.manager
-
-            tasks_performer_manager = {}
-            tasks_performer_manager["tasks"] = Task.objects.filter(taskperformer=login)
-            tasks_performer_manager["performer"] = Performer.objects.get(login=login)
-            tasks_performer_manager["manager"] = tasks_performer_manager["performer"].manager
-
-            serialized_tasks_performer_manager = TaskPerformerManagerSerializer(tasks_performer_manager).data
-
-            # serialized_task = TaskSerializer(tasks, many=True)
-            # serialized_performer = PerformerSerializer(performer)
-            # serialized_manager = ManagerSerializer(tasks_performer_manager["manager"])
-
-        except Performer.DoesNotExist:
-            Manager.objects.get(login=login)
-
         serialized_user = {"firstname": user.firstname, "lastname": user.lastname}
 
-        data_context = {"tasks_performer_manager_context": serialized_tasks_performer_manager, "user_context": serialized_user}
+        user = services.getUserWithLogin(login)
+        if isinstance(user, Performer):
+            task_performer = {}
+            task_performer["tasks"] = Task.objects.filter(taskperformer=login)
+            task_performer["performers"] = user
+            task_performer["manager"] = task_performer["performers"].manager
+
+            serialized_task_performer = TasksPerformerManagerSerializer(task_performer).data
+
+            data_context = {"task_context": serialized_task_performer, "user_context": serialized_user}
+
+        else:
+            task_manager = {}
+            task_manager["manager"] = user
+            task_manager["performers"] = Performer.objects.filter(manager=task_manager["manager"])
+            task_manager["tasks"] = Task.objects.filter(taskperformer__in=task_manager["performers"])
+            
+            serialized_tasks_manager = TasksManagerPerformersSerializer(task_manager).data
+
+            data_context = {"task_context": serialized_tasks_manager, "user_context": serialized_user}
+
         return render(request, "personalarea/tasks.html", context=data_context)
 
 def performers(request):
