@@ -1,9 +1,8 @@
 {% extends 'personalarea/base.html' %}
 {% block content %}
 {% load static %}
-{{ task_context|json_script:"tasks_json" }}
-      <div class="cont" id="app4">
-        <select v-model="selectedPerformer">
+    <div class="cont" id="app4">
+        <select v-model="selectedPerformer" v-if="isManager">
             <option v-for="performer in performers" v-bind:value="performer">[[ performer.lastname ]] [[ performer.firstname ]] [[ performer.patronymic ]]</option>
             <option>Все</option>
         </select>
@@ -16,46 +15,8 @@
             <option>Все</option>
         </select>
 
-        <div v-for="task in tasks">
-            <div v-if="performers.length > 0">
-                <div v-for="performer in performers" v-if="task.taskperformer === performer.login">
-                    <div v-if="selectedPerformer === 'Все' && selectedStatus === 'Все' || selectedPerformer.login === performer.login && selectedStatus === task.taskstatus">
-                        <a><button class="Button TaskButton">
-                            <table>
-                                <tr>
-                                    <td class="Task">[[ task.taskname ]]</td>
-                                    <td class="Status">[[ task.taskstatus ]]</td>
-                                </tr>
-                                <tr>
-                                    <td class="User">Исполнитель: [[ performer.lastname ]] [[ performer.firstname ]] [[ performer.patronymic ]] </td>
-                                </tr>
-                                <tr>
-                                    <td class="User">Менеджер: [[ manager ]] </td>
-                                </tr>
-                            </table>
-                        </button></a>
-                    </div>
-                    <div v-else-if="selectedPerformer.login === performer.login && selectedStatus === 'Все' || selectedPerformer === 'Все' && selectedStatus === task.taskstatus">
-                        <a><button class="Button TaskButton">
-                            <table>
-                                <tr>
-                                    <td class="Task">[[ task.taskname ]]</td>
-                                    <td class="Status">[[ task.taskstatus ]]</td>
-                                </tr>
-                                <tr>
-                                    <td class="User">Исполнитель: [[ performer.lastname ]] [[ performer.firstname ]] [[ performer.patronymic ]] </td>
-                                </tr>
-                                <tr>
-                                    <td class="User">Менеджер: [[ manager ]] </td>
-                                </tr>
-                            </table>
-                        </button></a>
-                    </div>   
-             
-                </div>
-            </div>
-
-            <div v-else>
+        <div v-for="task in tasks" v-if="task.taskperformer.login === user.login">
+            <div v-if="selectedStatus === 'Все'">
                 <a><button class="Button TaskButton">
                     <table>
                         <tr>
@@ -63,16 +24,65 @@
                             <td class="Status">[[ task.taskstatus ]]</td>
                         </tr>
                         <tr>
-                            <td class="User">Исполнитель: [[ performers.lastname ]] [[ performers.firstname ]] [[ performers.patronymic ]] </td>
+                            <td class="User">Исполнитель: [[ task.taskperformer.lastname ]] [[ task.taskperformer.firstname ]] [[ task.taskperformer.patronymic ]] </td>
                         </tr>
                         <tr>
-                            <td class="User">Менеджер: [[ manager ]] </td>
+                            <td class="User">Менеджер: [[ task.taskperformer.manager.lastname ]] [[ task.taskperformer.manager.firstname ]] [[ task.taskperformer.manager.patronymic ]] </td>
+                        </tr>
+                    </table>
+                </button></a>
+            </div>
+            <div v-if="selectedStatus === task.taskstatus">
+                <a><button class="Button TaskButton">
+                    <table>
+                        <tr>
+                            <td class="Task">[[ task.taskname ]]</td>
+                            <td class="Status">[[ task.taskstatus ]]</td>
+                        </tr>
+                        <tr>
+                            <td class="User">Исполнитель: [[ task.taskperformer.lastname ]] [[ task.taskperformer.firstname ]] [[ task.taskperformer.patronymic ]] </td>
+                        </tr>
+                        <tr>
+                            <td class="User">Менеджер: [[ task.taskperformer.manager.lastname ]] [[ task.taskperformer.manager.firstname ]] [[ task.taskperformer.manager.patronymic ]] </td>
                         </tr>
                     </table>
                 </button></a>
             </div>
         </div>
-      </div>
+        <div v-else-if="task.taskperformer.manager.login == user.login">
+            <div v-if="selectedPerformer === 'Все' && selectedStatus === 'Все' || selectedPerformer.login === task.taskperformer.login && selectedStatus === task.taskstatus">
+                <a><button class="Button TaskButton">
+                    <table>
+                        <tr>
+                            <td class="Task">[[ task.taskname ]]</td>
+                            <td class="Status">[[ task.taskstatus ]]</td>
+                        </tr>
+                        <tr>
+                            <td class="User">Исполнитель: [[ task.taskperformer.lastname ]] [[ task.taskperformer.firstname ]] [[ task.taskperformer.patronymic ]] </td>
+                        </tr>
+                        <tr>
+                            <td class="User">Менеджер: [[ task.taskperformer.manager.lastname ]] [[ task.taskperformer.manager.firstname ]] [[ task.taskperformer.manager.patronymic ]] </td>
+                        </tr>
+                    </table>
+                </button></a>
+            </div>
+            <div v-else-if="selectedPerformer.login === task.taskperformer.login && selectedStatus === 'Все' || selectedPerformer === 'Все' && selectedStatus === task.taskstatus">
+                <a><button class="Button TaskButton">
+                    <table>
+                        <tr>
+                            <td class="Task">[[ task.taskname ]]</td>
+                            <td class="Status">[[ task.taskstatus ]]</td>
+                        </tr>
+                        <tr>
+                            <td class="User">Исполнитель: [[ task.taskperformer.lastname ]] [[ task.taskperformer.firstname ]] [[ task.taskperformer.patronymic ]] </td>
+                        </tr>
+                        <tr>
+                            <td class="User">Менеджер: [[ task.taskperformer.manager.lastname ]] [[ task.taskperformer.manager.firstname ]] [[ task.taskperformer.manager.patronymic ]] </td>
+                        </tr>
+                    </table>
+                </button></a>
+            </div>
+        </div>
 
       <script src="{% static "js/task.vue.js" %}"></script>
 {% endblock %}

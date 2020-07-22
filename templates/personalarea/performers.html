@@ -1,24 +1,21 @@
 {% extends 'personalarea/base.html' %}
 {% block content %}
 {% load static %}
-{{ managers_performers_context|json_script:"managers_persormers" }}
     <div class="cont" id="app3">
-        <div v-for="performer in managers_persormers.performers">
-            <div v-for="manager in managers_persormers.managers">
-                <a><button class="Button PerformerButton" v-if="performer.manager === manager.login">
-                    <table>
-                        <tr>
-                            <td class="Performer">[[ performer.lastname ]] [[ performer.firstname ]] [[ performer.patronymic ]]</td>
-                            <td class="Grade">[[ performer.grade ]]</td>
-                        </tr>
-                        <tr>
-                            <td class="Manager">Менеджер: [[ manager.lastname ]] [[ manager.firstname ]] [[ manager.patronymic ]]</td>
-                        </tr>
-                    </table>
-                </button></a>
-            </div>
+        <div v-for="performer in performermanager">
+            <a><button class="Button PerformerButton">
+                <table>
+                    <tr>
+                        <td class="Performer">[[ performer.lastname ]] [[ performer.firstname ]] [[ performer.patronymic ]]</td>
+                        <td class="Grade">[[ performer.grade ]]</td>
+                    </tr>
+                    <tr>
+                        <td class="Manager">Менеджер: [[ performer.manager.lastname ]] [[ performer.manager.firstname ]] [[ performer.manager.patronymic ]]</td>
+                    </tr>
+                </table>
+            </button></a>
         </div>
-      </div>
+    </div>
   
-      <script src="{% static "js/performer.vue.js" %}"></script>
+    <script src="{% static "js/performer.vue.js" %}"></script>
 {% endblock %}
