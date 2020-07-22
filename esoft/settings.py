@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'login',
     'personalarea',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [

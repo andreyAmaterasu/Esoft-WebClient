@@ -1,36 +1,23 @@
 const vm2 = new Vue({
     delimiters: ["[[", "]]"],
-    el: '#app4',
+    el: '#app5',
     data: {
-        tasks: [],
-        selectedPerformer: 'Все',
-        selectedStatus: 'Все',
+        task: {},
     },
-    computed: {
-        isManager() {
-            if ((this.tasks.filter(task => task.taskperformer.manager.login == user.login)).length) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        },
-
-        performers: {
-            get: function() {
-                var performers = []
-                this.tasks.filter(task => {
-                    if (task.taskperformer.manager.login == user.login) {
-                        performers.push(task.taskperformer);
-                    }
-                });
-                return performers;
-            }
+    methods: {
+        async createTask() {
+            const str = JSON.stringify(this.task);
+            await axios.post('http://10.0.0.3:8000/api/task/', str, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
         }
-    },
-    mounted() {
-        axios
-            .get('http://10.0.0.3:8000/api/taskperformermanager/')
-            .then(response => (this.tasks = response.data));  
     }
 });

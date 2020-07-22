@@ -84,5 +84,12 @@
             </div>
         </div>
 
-      <script src="{% static "js/task.vue.js" %}"></script>
+        <a v-if="isManager" href="{% url 'task' %}"><button class="Button TaskButton">
+            <table>
+                
+            </table>
+        </button></a>
+    </div>
+
+    <script src="{% static "js/tasks.vue.js" %}"></script>
 {% endblock %}

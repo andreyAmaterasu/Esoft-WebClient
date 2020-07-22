@@ -2,11 +2,12 @@ from rest_framework.viewsets import ModelViewSet
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from . import services
-from .serializers import ManagerForPerformerSerializer, TasksPerformerManagerSerializer, TasksManagerPerformersSerializer, PerformerSerializer, ManagerSerializer, TaskSerializer
+from .serializers import TaskSerializer, PerformerSerializer, ManagerSerializer, TaskPerformerManagerSerializer
 from rest_framework.renderers import JSONRenderer
-from .models import Manager, Performer, Task
+from .models import Manager, Performer, Task, Useraccount
 from django.core import serializers
 from django.forms.models import model_to_dict
+from .forms import TaskForm
 
 class PerformerViewSet(ModelViewSet):
     serializer_class = PerformerSerializer
@@ -16,15 +17,15 @@ class ManagerViewSet(ModelViewSet):
     serializer_class = ManagerSerializer
     queryset = Manager.objects.all()
 
-class TaskViewSet(ModelViewSet):
-    serializer_class = TaskSerializer
+class TaskPerformerManagerViewSet(ModelViewSet):
+    serializer_class = TaskPerformerManagerSerializer
     queryset = Task.objects.all()
 
 class PerformerManagerViewSet(ModelViewSet):
     serializer_class = PerformerSerializer
     queryset = Performer.objects.all()
 
-class TaskPerformerManagerViewSet(ModelViewSet):
+class TaskViewSet(ModelViewSet):
     serializer_class = TaskSerializer
     queryset = Task.objects.all()
 
@@ -95,3 +96,10 @@ def performers(request):
         serialized_user = {"firstname": user.firstname, "lastname": user.lastname}
         data_context = {"user_context": serialized_user}
         return render(request, "personalarea/performers.html", context=data_context)
+
+def task(request):
+    if request.method == "POST":
+        return HttpResponse("Задача создана")
+    else:
+        taskForm = TaskForm()
+        return render(request, "personalarea/task.html", {"form": taskForm})

@@ -1,0 +1,22 @@
+{% extends 'personalarea/base.html' %}
+{% block content %}
+{% load static %}
+
+<div id="app5">
+    <input placeholder="taskname" v-model="task.taskname">
+    <input placeholder="aboutoftask" v-model="task.aboutoftask">
+    <input type="date" placeholder="periodofexecution" v-model="task.periodofexecution">
+    <input type="date" placeholder="dateofcompletion" v-model="task.dateofcompletion">
+    <input placeholder="taskcomplexity" v-model="task.taskcomplexity">
+    <input placeholder="timetocompletethetask" v-model="task.timetocompletethetask">
+    <input placeholder="taskstatus" v-model="task.taskstatus">
+    <input placeholder="natureofthetask" v-model="task.natureofthetask">
+    <input placeholder="taskperformer" v-model="task.taskperformer">
+    <button v-on:click="createTask()">Create</button>
+    [[task]]
+</div>
+
+
+<script src="{% static "js/task.vue.js" %}"></script>
+
+{% endblock %}
