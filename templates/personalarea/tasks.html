@@ -2,18 +2,32 @@
 {% block content %}
 {% load static %}
     <div class="cont" id="app4">
-        <select v-model="selectedPerformer" v-if="isManager">
-            <option v-for="performer in performers" v-bind:value="performer">[[ performer.lastname ]] [[ performer.firstname ]] [[ performer.patronymic ]]</option>
-            <option>Все</option>
-        </select>
+        <div class="FilterPanel">
+            <p class="FilterHeader">Фильтрация списка</p>
+            <div class="PerformerFilter" v-if="isManager">
+                <span class="FilterSubheader">Исполнитель:</span>
+                <select v-model="selectedPerformer">
+                    <option v-for="performer in performers" v-if="performer.manager.login === user.login" v-bind:value="performer">[[ performer.lastname ]] [[ performer.firstname ]] [[ performer.patronymic ]]</option>
+                    <option>Все</option>
+                </select>
+            </div>
 
-        <select v-model="selectedStatus">
-            <option>Запланирована</option>
-            <option>Исполняется</option>
-            <option>Выполнена</option>
-            <option>Отменена</option>
-            <option>Все</option>
-        </select>
+            <div class="StatusFilter">
+                <span class="FilterSubheader">Статус задачи:</span>
+                <select v-model="selectedStatus">
+                    <option>Запланирована</option>
+                    <option>Исполняется</option>
+                    <option>Выполнена</option>
+                    <option>Отменена</option>
+                    <option>Все</option>
+                </select>
+            </div>
+        </div>
+        
+
+        <a v-if="isManager" href="{% url 'task' %}"><button class="Button TaskButton">
+            <img class="AddImg" src="{% static "images/add.png" %}">
+        </button></a>
 
         <div v-for="task in tasks" v-if="task.taskperformer.login === user.login">
             <div v-if="selectedStatus === 'Все'">
@@ -83,12 +97,6 @@
                 </button></a>
             </div>
         </div>
-
-        <a v-if="isManager" href="{% url 'task' %}"><button class="Button TaskButton">
-            <table>
-                
-            </table>
-        </button></a>
     </div>
 
     <script src="{% static "js/tasks.vue.js" %}"></script>

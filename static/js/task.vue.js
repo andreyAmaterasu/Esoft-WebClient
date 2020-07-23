@@ -1,8 +1,9 @@
-const vm2 = new Vue({
+const task = new Vue({
     delimiters: ["[[", "]]"],
     el: '#app5',
     data: {
         task: {},
+        performers: [],
     },
     methods: {
         async createTask() {
@@ -19,5 +20,10 @@ const vm2 = new Vue({
                 console.log(error);
             });
         }
+    },
+    mounted() {
+        axios
+            .get('http://10.0.0.3:8000/api/getperformers/')
+            .then(response => (this.performers = response.data)); 
     }
 });

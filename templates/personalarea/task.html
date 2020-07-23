@@ -1,22 +1,54 @@
 {% extends 'personalarea/base.html' %}
 {% block content %}
 {% load static %}
+    <div class="cont" id="app5">
+        <table class="TaskTable">
+            <tr> 
+                <td class="TaskTD">
+                    <p class="Header">Выбор исполнителя</p>
+                    <select v-model="task.taskperformer" >
+                        <option v-for="performer in performers" v-if="performer.manager.login === user.login" v-bind:value="performer.login"> [[performer.lastname]] [[performer.firstname]] [[performer.patronymic]] </option>
+                    </select>
+                </td>
+                
+            </tr> 
+            <tr> 
+                <td class="TaskTD"><p class="Header">Заголовок задачи</p><input v-model="task.taskname"></td>
+                <td class="TaskTD"><p class="Header">Описание задачи</p><input v-model="task.aboutoftask"></td>
+            </tr>
+            <tr> 
+                <td class="TaskTD"><p class="Header">Срок исполнения</p><input type="date" placeholder="ГГГГ-ММ-ДД" v-model="task.periodofexecution"></td>
+                <td class="TaskTD"><p class="Header">Дата выполнения</p><input type="date" placeholder="ГГГГ-ММ-ДД" v-model="task.dateofcompletion"></td>
+            </tr>
+            <tr> 
+                <td class="TaskTD"><p class="Header">Сложность задачи</p><input placeholder="[0 : 50]" v-model="task.taskcomplexity"></td>
+                <td class="TaskTD"><p class="Header">Время на выолнение</p><input placeholder="Минуты" v-model="task.timetocompletethetask"></td>
+            </tr>
+            <tr> 
+                <td class="TaskTD">
+                    <p class="Header">Статус задачи</p>
+                    <select v-model="task.taskstatus">
+                        <option>Запланирована</option>
+                        <option>Исполняется</option>
+                        <option>Выполнена</option>
+                        <option>Отменена</option>
+                    </select>
+                </td>
+                <td class="TaskTD">
+                    <p class="Header">Характер задачи</p>
+                    <select v-model="task.natureofthetask">
+                        <option>Анализ и проектирование</option>
+                        <option>Установка оборудования</option>
+                        <option>Техническое обслуживание и сопровождение</option>
+                    </select>
+                </td>
+            </tr>
+            
+        </table>
+        <button class="Button SubmitButton" v-on:click="createTask()">Создать</button>
+    </div>
 
-<div id="app5">
-    <input placeholder="taskname" v-model="task.taskname">
-    <input placeholder="aboutoftask" v-model="task.aboutoftask">
-    <input type="date" placeholder="periodofexecution" v-model="task.periodofexecution">
-    <input type="date" placeholder="dateofcompletion" v-model="task.dateofcompletion">
-    <input placeholder="taskcomplexity" v-model="task.taskcomplexity">
-    <input placeholder="timetocompletethetask" v-model="task.timetocompletethetask">
-    <input placeholder="taskstatus" v-model="task.taskstatus">
-    <input placeholder="natureofthetask" v-model="task.natureofthetask">
-    <input placeholder="taskperformer" v-model="task.taskperformer">
-    <button v-on:click="createTask()">Create</button>
-    [[task]]
-</div>
 
-
-<script src="{% static "js/task.vue.js" %}"></script>
+    <script src="{% static "js/task.vue.js" %}"></script>
 
 {% endblock %}

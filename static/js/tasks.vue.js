@@ -1,10 +1,11 @@
-const vm2 = new Vue({
+const tasks = new Vue({
     delimiters: ["[[", "]]"],
     el: '#app4',
     data: {
         tasks: [],
         selectedPerformer: 'Все',
         selectedStatus: 'Все',
+        performers: [],
     },
     computed: {
         isManager() {
@@ -15,22 +16,14 @@ const vm2 = new Vue({
                 return false;
             }
         },
-
-        performers: {
-            get: function() {
-                var performers = [];
-                this.tasks.filter(task => {
-                    if (task.taskperformer.manager.login == user.login) {
-                        performers.push(task.taskperformer);
-                    }
-                });
-                return performers;
-            }
-        }
     },
     mounted() {
         axios
             .get('http://10.0.0.3:8000/api/taskperformermanager/')
             .then(response => (this.tasks = response.data));  
+
+        axios
+            .get('http://10.0.0.3:8000/api/getperformers/')
+            .then(response => (this.performers = response.data)); 
     }
 });

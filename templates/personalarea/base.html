@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 {% load static %}
-{{ user_context|json_script:"user" }}
+{{ user_context|json_script:"user_json" }}
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Esoft - Личный кабинет</title>
     <link rel="stylesheet" type="text/css" href="{% static "css/style.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/performers.vue.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "css/tasks.vue.css" %}">
     <link rel="stylesheet" type="text/css" href="{% static "css/task.vue.css" %}">
     <script src="{% static "js/vue.min.js" %}"></script>
     <script src="{% static "js/axios.min.js" %}"></script>
