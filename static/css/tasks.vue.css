@@ -9,12 +9,14 @@
     color: #546e7a;
     text-align: left;
     padding: 0 10px 0 10px;
+    font-size: 11pt;
 }
 
 .Status {
     color: #37474f;
     text-align: right;
     padding: 0 10px 0 10px;
+    font-size: 11pt;
 }
 
 .PerformerFilter, .StatusFilter {
@@ -55,23 +57,29 @@
     margin: 1%;
 }
 
-.Button {
+.TaskItem {
     font-family: Helvetica;
-    font-weight: normal;
-    font-size: 11pt;
-    border: none;
-    color: white;
-    text-decoration: none;  
-    cursor: pointer;
-}
-
-.TaskButton {
     width: 48%;
     height: 100px;
     float: left;
     margin: 1%;
     border-radius: 10px;
     background-color: #d1ecff;
+    border: none;
+    position: relative;
+}
+
+.Trash {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 10px;
+    background: transparent;
+    border: none;
+}
+
+.TrashImg {
+    height: 30px;
 }
 
 table {

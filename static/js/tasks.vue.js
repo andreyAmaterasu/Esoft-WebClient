@@ -1,3 +1,4 @@
+var selectedTask = null;
 const tasks = new Vue({
     delimiters: ["[[", "]]"],
     el: '#app4',
@@ -6,25 +7,40 @@ const tasks = new Vue({
         selectedPerformer: 'Все',
         selectedStatus: 'Все',
         performers: [],
+        taskId: null,
+    },
+    methods: {
+        async selectTask(taskId) {
+            this.taskId = taskId;
+        },
+        async getTasks() {
+            const host = `${window.location.protocol}//${window.location.host}`;
+            await axios.get(host + '/api/taskperformermanager/')
+            .then(response => (this.tasks = response.data));  
+        },
+        async getPerformers() {
+            const host = `${window.location.protocol}//${window.location.host}`;
+            await axios.get(host + '/api/getperformers/')
+            .then(response => (this.performers = response.data)); 
+        },
+        async removeTask(taskId) {
+            const host = `${window.location.protocol}//${window.location.host}`;
+            await axios.delete(host + '/api/task/' + taskId);
+            await this.getTasks();
+        },
     },
     computed: {
         isManager() {
-            if ((this.tasks.filter(task => task.taskperformer.manager.login == user.login)).length) {
-                return true;
+            if ((this.performers.filter(performer => performer.login == user.login)).length) {
+                return false;
             }
             else {
-                return false;
+                return true;
             }
         },
     },
-    mounted() {
-        const host = `${window.location.protocol}//${window.location.host}`;
-        axios
-            .get(host + '/api/taskperformermanager/')
-            .then(response => (this.tasks = response.data));  
-
-        axios
-            .get(host + '/api/getperformers/')
-            .then(response => (this.performers = response.data)); 
-    }
+    created() {
+        this.getTasks();
+        this.getPerformers();
+    },
 });

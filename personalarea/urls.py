@@ -10,6 +10,7 @@ router.register("taskperformermanager", views.TaskPerformerManagerViewSet)
 router.register("task", views.TaskViewSet)
 
 urlpatterns = [
+    path('tasks/createtask', views.createtask, name='createtask'),
     path('tasks/task', views.task, name='task'),
     path('tasks', views.tasks, name='tasks'),
     path('performers', views.performers, name='performers'),

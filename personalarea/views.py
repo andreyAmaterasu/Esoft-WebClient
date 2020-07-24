@@ -106,3 +106,13 @@ def task(request):
         serialized_user = {"login": login, "firstname": user.firstname, "lastname": user.lastname}
         data_context = {"user_context": serialized_user}
         return render(request, "personalarea/task.html", context=data_context)
+
+def createtask(request):
+    if request.method == "POST":
+        return HttpResponse("Задача создана")
+    else:
+        login = request.session.get('login')
+        user = services.getUserWithLogin(login)
+        serialized_user = {"login": login, "firstname": user.firstname, "lastname": user.lastname}
+        data_context = {"user_context": serialized_user}
+        return render(request, "personalarea/createTask.html", context=data_context)
