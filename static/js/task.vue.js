@@ -8,7 +8,8 @@ const task = new Vue({
     methods: {
         async createTask() {
             const str = JSON.stringify(this.task);
-            await axios.post('http://10.0.0.3:8000/api/task/', str, {
+            const host = `${window.location.protocol}//${window.location.host}`;
+            await axios.post(host + '/api/task/', str, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
@@ -22,8 +23,9 @@ const task = new Vue({
         }
     },
     mounted() {
+        const host = `${window.location.protocol}//${window.location.host}`;
         axios
-            .get('http://10.0.0.3:8000/api/getperformers/')
+            .get(host + '/api/getperformers/')
             .then(response => (this.performers = response.data)); 
     }
 });

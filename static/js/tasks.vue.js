@@ -18,12 +18,13 @@ const tasks = new Vue({
         },
     },
     mounted() {
+        const host = `${window.location.protocol}//${window.location.host}`;
         axios
-            .get('http://10.0.0.3:8000/api/taskperformermanager/')
+            .get(host + '/api/taskperformermanager/')
             .then(response => (this.tasks = response.data));  
 
         axios
-            .get('http://10.0.0.3:8000/api/getperformers/')
+            .get(host + '/api/getperformers/')
             .then(response => (this.performers = response.data)); 
     }
 });

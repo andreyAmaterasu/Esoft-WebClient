@@ -7,8 +7,9 @@ const performer = new Vue({
         managers: [],
     },
     mounted() {
+        const host = `${window.location.protocol}//${window.location.host}`;
         axios
-            .get('http://10.0.0.3:8000/api/performermanager/')
+            .get(host + '/api/performermanager/')
             .then(response => (this.performermanager = response.data));
     }
 });
