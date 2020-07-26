@@ -1,0 +1,57 @@
+{% extends 'personalarea/base.html' %}
+{% block content %}
+{% load static %}
+    <div class="cont" id="app6">
+        <table class="TaskTable">
+            <tr> 
+                <td class="TaskTD">
+                    <p class="Header">Выбор задачи</p>
+                    <select v-model="editedTask">
+                        <option v-for="task in tasks" v-if="task.taskperformer === user.login" v-bind:value="task"> [[task.taskname]] </option>
+                        <template v-for="taskPM in tasksPM">
+                            <option v-for="task in tasks" v-if="taskPM.taskid === task.taskid && taskPM.taskperformer.manager.login === user.login" v-bind:value="task"> [[task.taskname]] </option>
+                        </template>
+                    </select>
+                </td>
+            </tr> 
+            <tr> 
+                <td class="TaskTD">
+                    <p class="Header">Выбор исполнителя</p>
+                    <select v-model="editedTask.taskperformer" >
+                        <option v-for="performer in performers" v-if="performer.manager.login === user.login" v-bind:value="performer.login"> [[performer.lastname]] [[performer.firstname]] [[performer.patronymic]] </option>
+                    </select>
+                </td>
+                <td class="TaskTD"><p class="Header">Описание задачи</p><input v-model="editedTask.aboutoftask"></td>
+            </tr>
+            <tr> 
+                <td class="TaskTD"><p class="Header">Срок исполнения</p><input type="date" placeholder="ГГГГ-ММ-ДД" v-model="editedTask.periodofexecution"></td>
+                <td class="TaskTD"><p class="Header">Дата выполнения</p><input type="date" placeholder="ГГГГ-ММ-ДД" v-model="editedTask.dateofcompletion"></td>
+            </tr>
+            <tr> 
+                <td class="TaskTD"><p class="Header">Сложность задачи</p><input placeholder="[0 : 50]" v-model="editedTask.taskcomplexity"></td>
+                <td class="TaskTD"><p class="Header">Время на выолнение</p><input placeholder="Минуты" v-model="editedTask.timetocompletethetask"></td>
+            </tr>
+            <tr> 
+                <td class="TaskTD">
+                    <p class="Header">Статус задачи</p>
+                    <select v-model="editedTask.taskstatus">
+                        <option>Запланирована</option>
+                        <option>Исполняется</option>
+                        <option>Выполнена</option>
+                        <option>Отменена</option>
+                    </select>
+                </td>
+                <td class="TaskTD">
+                    <p class="Header">Характер задачи</p>
+                    <select v-model="editedTask.natureofthetask">
+                        <option>Анализ и проектирование</option>
+                        <option>Установка оборудования</option>
+                        <option>Техническое обслуживание и сопровождение</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <button class="Button SubmitButton" v-on:click="editTask()">Сохранить</button>
+    </div>
+    <script src="{% static "js/editTask.vue.js" %}"></script>
+{% endblock %}

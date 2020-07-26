@@ -9,7 +9,7 @@ const task = new Vue({
         async createTask() {
             const str = JSON.stringify(this.task);
             const host = `${window.location.protocol}//${window.location.host}`;
-            await axios.post(host + '/api/task/', str, {
+            await axios.post(host + '/api/task/', this.task, {
                 headers: {
                     'Content-Type': 'application/json'
                 }

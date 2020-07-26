@@ -24,8 +24,8 @@
             </div>
         </div>
         
-        <a href="{% url 'task' %}"><button class="TaskItem">
-            <img class="AddImg" src="{% static "images/edit.png" %}">
+        <a href="{% url 'edittask' %}"><button class="TaskItem">
+            <img class="AddImg" src="{% static "images/viewedit.png" %}">
         </button></a>
         <a v-if="isManager" href="{% url 'task' %}"><button class="TaskItem">
             <img class="AddImg" src="{% static "images/add.png" %}">

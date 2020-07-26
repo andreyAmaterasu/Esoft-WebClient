@@ -10,7 +10,6 @@
                         <option v-for="performer in performers" v-if="performer.manager.login === user.login" v-bind:value="performer.login"> [[performer.lastname]] [[performer.firstname]] [[performer.patronymic]] </option>
                     </select>
                 </td>
-                
             </tr> 
             <tr> 
                 <td class="TaskTD"><p class="Header">Заголовок задачи</p><input v-model="task.taskname"></td>
@@ -43,12 +42,10 @@
                     </select>
                 </td>
             </tr>
-            
         </table>
         <button class="Button SubmitButton" v-on:click="createTask()">Создать</button>
     </div>
 
 
     <script src="{% static "js/task.vue.js" %}"></script>
-
 {% endblock %}
