@@ -23,7 +23,9 @@
         <input class="Button SubmitButton" type="submit" value="Войти">
     </form>
     {% if error %}
-    <div class="ErrorBlock"></div>
+    <div class="ErrorBlock">
+        <p class="Message">Неверный логин или пароль</p>
+    </div>
     {% endif %}
 </body>
 </html>

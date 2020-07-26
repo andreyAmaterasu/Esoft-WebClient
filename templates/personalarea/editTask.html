@@ -1,7 +1,7 @@
 {% extends 'personalarea/base.html' %}
 {% block content %}
 {% load static %}
-    <div class="cont" id="app6">
+    <div id="app6">
         <table class="TaskTable">
             <tr> 
                 <td class="TaskTD">
@@ -52,6 +52,10 @@
             </tr>
         </table>
         <button class="Button SubmitButton" v-on:click="editTask()">Сохранить</button>
+
+        <div v-if="editedSuccess" class="SuccessBlock">
+            <p class="Message">Задача успешно отредактирована</p>
+        </div>
     </div>
     <script src="{% static "js/editTask.vue.js" %}"></script>
 {% endblock %}

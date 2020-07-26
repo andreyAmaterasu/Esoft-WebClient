@@ -4,6 +4,7 @@ const task = new Vue({
     data: {
         task: {},
         performers: [],
+        createSuccess: false,
     },
     methods: {
         async createTask() {
@@ -16,6 +17,7 @@ const task = new Vue({
             })
             .then((response) => {
                 console.log(response);
+                this.createSuccess = true;
             })
             .catch((error) => {
                 console.log(error);

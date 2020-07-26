@@ -1,7 +1,7 @@
 {% extends 'personalarea/base.html' %}
 {% block content %}
 {% load static %}
-    <div class="cont" id="app4">
+    <div id="app4">
         <div class="FilterPanel">
             <p class="FilterHeader">Фильтрация списка</p>
             <div class="PerformerFilter" v-if="isManager">
@@ -109,6 +109,9 @@
                     </table>
                 </div>
             </div>
+        </div>
+        <div v-if="deleteSuccess" class="SuccessBlock">
+            <p class="Message">Задача успешно удалена</p>
         </div>
     </div>
 

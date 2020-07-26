@@ -119,3 +119,19 @@ label {
     background-color: #e36464;
     display: block;
 }
+
+.SuccessBlock {
+    height: 70px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    background-color: #65cf7e;
+    display: block;
+}
+
+.Message {
+    color: white;
+    font-family: Helvetica;
+    font-size: 11pt;
+    padding: 10px;
+}

@@ -8,6 +8,7 @@ const tasks = new Vue({
         selectedStatus: 'Все',
         performers: [],
         taskId: null,
+        deleteSuccess: false,
     },
     methods: {
         async selectTask(taskId) {
@@ -27,6 +28,7 @@ const tasks = new Vue({
             const host = `${window.location.protocol}//${window.location.host}`;
             await axios.delete(host + '/api/task/' + taskId);
             await this.getTasks();
+            this.deleteSuccess = true;
         },
     },
     computed: {

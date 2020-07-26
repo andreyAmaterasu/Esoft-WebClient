@@ -6,11 +6,16 @@ const task = new Vue({
         tasks: [],
         performers: [],
         editedTask: {},
+        editedSuccess: false,
     },
     methods: {
         async editTask() {
             const host = `${window.location.protocol}//${window.location.host}`;
-            await axios.patch(host + '/api/task/' + this.editedTask.taskid + '/', this.editedTask);
+            await axios.patch(host + '/api/task/' + this.editedTask.taskid + '/', this.editedTask)
+            .then((response) => {
+                console.log(response);
+                this.editedSuccess = true;
+            });
         }
     },
     mounted() {

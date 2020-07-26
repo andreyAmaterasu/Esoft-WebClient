@@ -1,7 +1,7 @@
 {% extends 'personalarea/base.html' %}
 {% block content %}
 {% load static %}
-    <div class="cont" id="app5">
+    <div id="app5">
         <table class="TaskTable">
             <tr> 
                 <td class="TaskTD">
@@ -44,6 +44,9 @@
             </tr>
         </table>
         <button class="Button SubmitButton" v-on:click="createTask()">Создать</button>
+        <div v-if="createSuccess" class="SuccessBlock">
+            <p class="Message">Задача успешно создана</p>
+        </div>
     </div>
 
 
