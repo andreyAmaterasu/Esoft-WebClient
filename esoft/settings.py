@@ -26,7 +26,7 @@ SECRET_KEY = '2^t(#&%9wek!6i)ha1ww3$ot4qtqar3n(t015t=cu9%u7+w#e6'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['10.0.0.3']
+ALLOWED_HOSTS = ['10.0.0.3', 'esoft-client.ru', 'www.esoft-client.ru']
 
 
 JWT_AUTH = {
