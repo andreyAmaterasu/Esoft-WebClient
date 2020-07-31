@@ -20,5 +20,4 @@ urlpatterns = [
     path('api/', include('personalarea.urls')),
     path('personalarea/', include('personalarea.urls')),
     path('', include('login.urls')),
-    
 ]
